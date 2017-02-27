@@ -12,14 +12,13 @@ files into [GeoJSON](http://www.geojson.org/) data suitable for maps..
 
 ```
 ➟ csv2geojson
-Usage: csv2geojson -lat [string] -lon [string] -delimiter [string] -crs [string] FILE
+Usage: csv2geojson --lat [string] --lon [string] --line [boolean] --delimiter [string] FILE
 
 Options:
   --lat        the name of the latitude column
   --lon        the name of the longitude column
-  --delimiter  the type of delimiter             [default: ","]
-  --crs        the Coordinate Reference System (CRS) of the
-               coordinates in the GeoJSON
+  --line       whether or not to output points as a LineString  [default: false]
+  --delimiter  the type of delimiter                            [default: ","]
 ```
 
 ## Using in nodejs
@@ -35,10 +34,6 @@ var geoJson = csv2geojson.csv2geojson(csvString, function(err, data) {
 });
 ```
 
-For usage with `browserify`, follow the same technique as for `node`, but remember
-to get [brfs](https://github.com/substack/brfs) as well so that dsv is correctly
-compiled.
-
 ## api
 
 ```js
@@ -50,10 +45,11 @@ csv2geojson.csv2geojson(csvString, {
 });
 ```
 
-Parse a CSV file and derive a [GeoJSON](http://www.geojson.org/) object from it.
-Err is non-falsy if latitude and longitude values cannot be detected or if
-there are invalid rows in the file. Delimiter can be ',' for CSV or '\t' for
-TSV or '|' and other delimiters.
+Parse a CSV file and derive a [GeoJSON](http://www.geojson.org/) 
+[`FeatureCollection`](http://geojson.org/geojson-spec.html#feature-collection-objects)
+object from it. Err is non-falsy if latitude and longitude values cannot be 
+detected or if there are invalid rows in the file. Delimiter can be ',' 
+for CSV or '\t' for TSV or '|' and other delimiters.
 
 Delimiter can also be `auto`, and it will try `, \t | ;` and choose the 'best'.
 
@@ -79,11 +75,13 @@ or line that has the coordinates of those points, in the order given.
 
 ## Using in webpages
 
-    wget https://raw.github.com/tmcw/csv2geojson/gh-pages/csv2geojson.js
+The latest build will be at
+
+    https://npmcdn.com/csv2geojson@latest/csv2geojson.js
+
+Open that path in a browser to be redirected to the lastest pinned version.
 
 Looks for fields like `/^Lat/i`.
-
-Includes part of [d3js](http://d3js.org/) for CSV parsing.
 
 ## See Also
 
